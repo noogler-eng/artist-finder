@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Tracks from "../components/Tracks";
 import { UserCheck } from "lucide-react";
+import { motion } from "framer-motion"
 
 
 export default function Landing() {
@@ -41,15 +42,16 @@ export default function Landing() {
   return (
     <div className="h-full w-full flex flex-col items-center justify-center">
       <div className="flex flex-col gap-8 mt-10">
-        <h1
+        <motion.h1
           className="text-5xl font-extrabold"
-          style={{ fontFamily: "cursive" }}
+          style={{ fontFamily: "cursive", y: -100 }}
+          animate={{ y: 0 }}
         >
           listening Infrastructure for{" "}
           <span className="bg-gradient-to-r from-white via-[#1db954] to-[#1db954] bg-clip-text text-transparent">
             everyone
           </span>
-        </h1>
+        </motion.h1>
         <form className="flex gap-2 items-center p-4 justify-center items-center">
           <input
             type="text"
@@ -58,13 +60,15 @@ export default function Landing() {
             placeholder="artist name"
             className="w-64 rounded-xl py-1 text-center text-black text-sm"
           />
-          <button
+          <motion.button
             type="submit"
             onClick={handelGetArtist}
             className="border-2 px-4 py-1 rounded-xl text-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
           >
             fetch
-          </button>
+          </motion.button>
         </form>
       </div>
       <div className="flex items-center justify-center m-12">
@@ -75,7 +79,7 @@ export default function Landing() {
                 key={index}
                 className="h-1/2 w-1/2 flex flex-col items-center"
               >
-                <img
+                <motion.img
                   src={
                     artist?.images[0]?.url ||
                     artist?.images[1]?.url ||
@@ -83,6 +87,17 @@ export default function Landing() {
                   }
                   alt="artist"
                   className="rounded-full max-h-1/2 border-2"
+                  animate={{
+                    rotate: [0, 360], 
+                  }}
+                  transition={{
+                    repeat: Infinity, 
+                    duration: 50, 
+                    ease: "linear", 
+                  }}
+                  style={{
+                    backgroundColor: "tomato",
+                  }}
                 />
                 <div className="text-2xl mt-2">{artist.name}</div>
                 <div className="flex gap-4 w-full justify-center items-center">
@@ -104,13 +119,15 @@ export default function Landing() {
                     var color =
                       colors[Math.floor(Math.random() * colors.length)];
                     return (
-                      <div
+                      <motion.div
                         key={index}
                         className={`border-2 px-4 text-sm py-1 rounded-xl`}
                         style={{ backgroundColor: color }}
+                        whileHover={{ backgroundColor: "#191414" }}
+                        transition={{ duration: 0.3 }}
                       >
                         {genre}
-                      </div>
+                      </motion.div>
                     );
                   })}
                 </div>
@@ -120,7 +137,7 @@ export default function Landing() {
       </div>
       <div className="flex flex-col gap-8 items-center bg-gradient-to-r from-[#1db954] via-white to-[#1db954] bg-clip-text text-transparent mb-12">
         {tracks.length > 0 && <div className="text-3xl">Artist Tracks</div>}
-        <div className="flex flex-col gap-4">{TopTracks}</div>
+        <div className="flex flex-col gap-12">{TopTracks}</div>
       </div>
     </div>
   );
