@@ -1,10 +1,13 @@
 import { useState } from "react";
-// import Tracks from "../components/Tracks";
-import { UserCheck } from "lucide-react";
 import { motion } from "framer-motion";
+import Meteors from "@/components/ui/meteors";
 
 import { RainbowButton } from "@/components/ui/rainbow-button";
 import TrackCard from "@/components/TrackCard";
+import { AnimatedBeamDemo } from "@/components/FromToFrom";
+import Avtaar from "@/components/Avtaar";
+import { UserCheck } from "lucide-react";
+import AnimatedGradientTextDemo from "@/components/MyLink";
 
 export default function Landing() {
   const [currentTrack, setCurrentTrack] = useState("");
@@ -78,34 +81,69 @@ export default function Landing() {
           </RainbowButton>
         </form>
       </div>
+      {!artistData.length ? (
+        <div className="w-full flex flex-col gap-4 items-center justify-center">
+          <div className="w-5/6 py-10 px-24 mt-20 flex gap-4 items-center justify-center">
+            <AnimatedBeamDemo />
+            <p className="text-center w-full flex flex-wrap text-gray-500">
+              By implementing these steps, you can create a seamless flow of
+              data from Spotify to your application, ensuring high-quality audio
+              playback. Consider using advanced audio processing techniques to
+              further enhance the listening experience. With efficient data
+              handling and playback control, users will enjoy a smooth and
+              responsive audio experience.
+            </p>
+          </div>
+          <div className="flex gap-8 items-center justify-center w-5/6 px-24">
+            <p className="text-center text-gray-500">
+              Our application is a trusted platform utilized by thousands of
+              users, providing a seamless and engaging experience for music
+              lovers. With a robust and user-friendly interface, we prioritize
+              security and reliability, ensuring that every interaction is
+              smooth and enjoyable. Our dedicated team continually works to
+              enhance performance and introduce innovative features, all while
+              maintaining a strong commitment to user privacy. By integrating
+              with popular services like Spotify, we offer access to a vast
+              library of music, empowering users to discover, listen, and enjoy
+              their favorite tracks with exceptional sound quality. Join our
+              growing community and experience the difference that a trusted
+              application can make in your musical journey!
+            </p>
+            <Avtaar />
+          </div>
+        </div>
+      ) : null}
       <div className="flex items-center justify-center m-12">
         {artistData &&
           artistData.map((artist: any, index: any) => {
             return (
               <div
                 key={index}
-                className="h-1/2 w-1/2 flex flex-col items-center"
+                className="h-1/2 flex flex-col w-full relative w-full items-center justify-center overflow-hidden rounded-lg bg-background md:shadow-xl bg-black gap-2"
               >
-                <motion.img
-                  src={
-                    artist?.images[0]?.url ||
-                    artist?.images[1]?.url ||
-                    artist?.images[2]?.url
-                  }
-                  alt="artist"
-                  className="rounded-full max-h-1/2 border-2"
-                  animate={{
-                    rotate: [0, 360],
-                  }}
-                  transition={{
-                    repeat: Infinity,
-                    duration: 50,
-                    ease: "linear",
-                  }}
-                  style={{
-                    backgroundColor: "tomato",
-                  }}
-                />
+                <Meteors number={30} />
+                <div className="w-4/6 pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-8xl font-semibold leading-none text-transparent h-full">
+                  <motion.img
+                    src={
+                      artist?.images[0]?.url ||
+                      artist?.images[1]?.url ||
+                      artist?.images[2]?.url
+                    }
+                    alt="artist"
+                    className="rounded-full max-h-1/2 border-2"
+                    animate={{
+                      rotate: [0, 360],
+                    }}
+                    transition={{
+                      repeat: Infinity,
+                      duration: 50,
+                      ease: "linear",
+                    }}
+                    style={{
+                      backgroundColor: "tomato",
+                    }}
+                  />
+                </div>
                 <div className="text-2xl mt-2">{artist.name}</div>
                 <div className="flex gap-4 w-full justify-center items-center">
                   <div className="flex gap-2">
@@ -138,6 +176,7 @@ export default function Landing() {
                     );
                   })}
                 </div>
+                <RainbowButton onClick={()=>window.location.reload()}>Refresh</RainbowButton>
               </div>
             );
           })}
@@ -152,6 +191,10 @@ export default function Landing() {
           </motion.div>
         )}
         <div className="flex flex-col gap-12">{TopTracks}</div>
+      </div>
+      <AnimatedGradientTextDemo goToLink={"/my-playlists"} />
+      <div className="flex items-center w-full">
+        <p className="text-center w-full py-1">made with ❤️ by sharad</p>
       </div>
     </div>
   );
