@@ -1,8 +1,10 @@
 import { useState } from "react";
-import Tracks from "../components/Tracks";
+// import Tracks from "../components/Tracks";
 import { UserCheck } from "lucide-react";
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
 
+import { RainbowButton } from "@/components/ui/rainbow-button";
+import TrackCard from "@/components/TrackCard";
 
 export default function Landing() {
   const [currentTrack, setCurrentTrack] = useState("");
@@ -29,7 +31,7 @@ export default function Landing() {
     tracks.length > 0
       ? tracks.map((track: any, index: any) => {
           return (
-            <Tracks
+            <TrackCard
               track={track}
               currentTrack={currentTrack}
               setCurrentTrack={setCurrentTrack}
@@ -39,36 +41,41 @@ export default function Landing() {
         })
       : null;
 
+  console.log(tracks);
+
   return (
     <div className="h-full w-full flex flex-col items-center justify-center">
-      <div className="flex flex-col gap-8 mt-10">
+      <div className="flex flex-col w-4/6 justify-center items-center gap-8 mt-10">
         <motion.h1
-          className="text-5xl font-extrabold"
+          className="bg-gradient-to-b from-black to-gray-600/80 bg-clip-text text-center text-8xl font-semibold leading-none text-transparent dark:from-white dark:to-slate-800/10"
           style={{ fontFamily: "cursive", y: -100 }}
           animate={{ y: 0 }}
         >
           listening Infrastructure for{" "}
-          <span className="bg-gradient-to-r from-white via-[#1db954] to-[#1db954] bg-clip-text text-transparent">
+          <span className="bg-gradient-to-b from-gray-600/80 to-black bg-clip-text text-center text-8xl font-semibold leading-none text-transparent dark:from-white dark:to-slate-900/10">
             everyone
           </span>
         </motion.h1>
-        <form className="flex gap-2 items-center p-4 justify-center items-center">
+        <p className="text-wrap w-4/6 text-gray-500 font-sans text-center">
+          Discover the top tracks of your favorite artists and enjoy their music
+          for free! Whether you’re a fan of pop, rock, hip-hop, or any other
+          genre, we’ve got you covered.
+        </p>
+        <form className="w-3/6 flex flex-col gap-4 items-center p-4 justify-center items-center">
           <input
             type="text"
             value={artist}
             onChange={(e) => setArtist(e.target.value)}
             placeholder="artist name"
-            className="w-64 rounded-xl py-1 text-center text-black text-sm"
+            className="w-full rounded-xl py-2 text-center text-sm bg-transparent border-2 border-gray-800 focus:outline-none"
           />
-          <motion.button
+          <RainbowButton
             type="submit"
             onClick={handelGetArtist}
-            className="border-2 px-4 py-1 rounded-xl text-sm"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            className="w-full"
           >
-            fetch
-          </motion.button>
+            let's get my artists's top song
+          </RainbowButton>
         </form>
       </div>
       <div className="flex items-center justify-center m-12">
@@ -88,12 +95,12 @@ export default function Landing() {
                   alt="artist"
                   className="rounded-full max-h-1/2 border-2"
                   animate={{
-                    rotate: [0, 360], 
+                    rotate: [0, 360],
                   }}
                   transition={{
-                    repeat: Infinity, 
-                    duration: 50, 
-                    ease: "linear", 
+                    repeat: Infinity,
+                    duration: 50,
+                    ease: "linear",
                   }}
                   style={{
                     backgroundColor: "tomato",
@@ -135,8 +142,15 @@ export default function Landing() {
             );
           })}
       </div>
-      <div className="flex flex-col gap-8 items-center bg-gradient-to-r from-[#1db954] via-white to-[#1db954] bg-clip-text text-transparent mb-12">
-        {tracks.length > 0 && <div className="text-3xl">Artist Tracks</div>}
+      <div className="flex flex-col gap-8 items-center text-transparent mb-12">
+        {tracks.length > 0 && (
+          <motion.div
+            className="text-3xl md:text-8xl font-extrabold bg-gradient-to-b from-black to-gray-600/80 bg-clip-text "
+            style={{ fontFamily: "cursive" }}
+          >
+            Artist Tracks
+          </motion.div>
+        )}
         <div className="flex flex-col gap-12">{TopTracks}</div>
       </div>
     </div>
