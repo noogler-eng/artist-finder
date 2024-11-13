@@ -8,6 +8,7 @@ import { AnimatedBeamDemo } from "@/components/FromToFrom";
 import Avtaar from "@/components/Avtaar";
 import { UserCheck } from "lucide-react";
 import AnimatedGradientTextDemo from "@/components/MyLink";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export default function Landing() {
   const [currentTrack, setCurrentTrack] = useState("");
@@ -75,7 +76,7 @@ export default function Landing() {
           <RainbowButton
             type="submit"
             onClick={handelGetArtist}
-            className="w-full"
+            className="w-full text-white"
           >
             let's get my artists's top song
           </RainbowButton>
@@ -176,7 +177,12 @@ export default function Landing() {
                     );
                   })}
                 </div>
-                <RainbowButton onClick={()=>window.location.reload()}>Refresh</RainbowButton>
+                <RainbowButton
+                  onClick={() => window.location.reload()}
+                  className="text-white"
+                >
+                  Refresh
+                </RainbowButton>
               </div>
             );
           })}
@@ -189,6 +195,15 @@ export default function Landing() {
           >
             Artist Tracks
           </motion.div>
+        )}
+        {tracks.length > 0 && (
+          <Alert>
+            {/* <Terminal className="h-4 w-4" /> */}
+            <AlertTitle>Heads up!</AlertTitle>
+            <AlertDescription>
+              some song will not play as there is some copyright issues!
+            </AlertDescription>
+          </Alert>
         )}
         <div className="flex flex-col gap-12">{TopTracks}</div>
       </div>

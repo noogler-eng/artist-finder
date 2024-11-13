@@ -61,7 +61,7 @@ export default function TrackCard({
   return (
     <Card
       isBlurred
-      className="border-none bg-background/60 dark:bg-default-100/50 max-w-[610px]"
+      className="border-none bg-background/60 dark:bg-default-100/50 max-w-[610px] shadow-lg shadow-indigo-500/30"
       shadow="sm"
     >
       <CardBody>
